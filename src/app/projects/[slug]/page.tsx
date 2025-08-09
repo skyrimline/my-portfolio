@@ -50,10 +50,10 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
             <h1 className="text-4xl font-bold mb-4">{project.title}</h1>
             <p className="text-lg text-gray-700 mb-8">{project.description}</p>
             
-            <div className="aspect-w-16 aspect-h-9 border rounded-lg overflow-hidden mb-12">
+            <div className="w-full border rounded-lg overflow-hidden mb-12">
                 <iframe
                     src={project.webglPath}
-                    className="w-full h-full"
+                    className="w-full h-[720px]"
                     title={project.title}
                     allowFullScreen
                 ></iframe>
