@@ -2,6 +2,10 @@
 
 import { Metadata } from 'next';
 
+type Props = {
+    params: { slug: string };
+};
+
 const projectsData = {
     'AlmightyArcher': {
         title: 'Almighty Archer',
@@ -20,13 +24,11 @@ const projectsData = {
     }
 };
 
-export async function generateStaticParams() {
-    return Object.keys(projectsData).map((slug) => ({
-        slug: slug,
-    }));
+async function getProjectData(slug: string) {
+    return projectsData[slug as keyof typeof projectsData] || null;
 }
 
-// vvvvvvv  第一个关键修改 vvvvvvv
+
 export async function generateMetadata(props: { params: { slug: string } }): Promise<Metadata> {
     const slug = props.params.slug;
     const project = projectsData[slug as keyof typeof projectsData];
@@ -37,7 +39,7 @@ export async function generateMetadata(props: { params: { slug: string } }): Pro
     return { title: `${project.title} | Your Name` };
 }
 
-// vvvvvvv  第二个关键修改 vvvvvvv
+
 export default function ProjectDetailPage(props: { params: { slug: string } }) {
     const slug = props.params.slug;
     const project = projectsData[slug as keyof typeof projectsData];
