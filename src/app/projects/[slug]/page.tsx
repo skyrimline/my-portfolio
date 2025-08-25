@@ -24,20 +24,20 @@ async function getProjectData(slug: string) {
 
 
 
-// --- 动态生成元数据的函数 (应用新范式) ---
+
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
-    const { slug } = await params; // <-- 【核心修正一】：在这里 await params
+    const { slug } = await params;
     const project = await getProjectData(slug);
-    
+
     if (!project) {
         return { title: 'Project Not Found' };
     }
     return { title: `${project.title} | Your Name` };
 }
 
-// --- 页面组件本身 (应用新范式) ---
+
 export default async function ProjectDetailPage({ params }: { params: Promise<{ slug: string }> }) {
-    const { slug } = await params; // <-- 【核心修正二】：在这里 await params
+    const { slug } = await params;
     const project = await getProjectData(slug);
 
     if (!project) {
@@ -45,11 +45,11 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
     }
 
     return (
-        // ... return内部的JSX代码，完全保持不变 ...
+
         <div>
             <h1 className="text-4xl font-bold mb-4">{project.title}</h1>
             <p className="text-lg text-gray-700 mb-8">{project.description}</p>
-            
+
             <div className="w-full border rounded-lg overflow-hidden mb-12">
                 <iframe
                     src={project.webglPath}
